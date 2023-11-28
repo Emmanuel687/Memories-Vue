@@ -1,4 +1,6 @@
 <template>
+  <Navbar></Navbar>
+
   <MemoryForm   @memorySubmitted="handleSubmittedMemories"/>
   <MemoryList :memories="memories"/>
   <CommentForm/>
@@ -7,10 +9,10 @@
 </template>
 
 <script setup>
-import CommentForm from './components/CommentForm.vue';
 import CommentList from './components/CommentList.vue';
 import MemoryForm from './components/MemoryForm.vue';
 import MemoryList from './components/MemoryList.vue';
+import Navbar from './components/Navbar.vue';
 import {ref} from "vue";
 
 
@@ -62,7 +64,7 @@ const handleSubmittedMemories = (memoryData)=>{
     title:memoryData.title,
     description:memoryData.description,
     tags:memoryData.tags,
-    images:memoryData.images
+    images:memoryData.image
 
   })
 

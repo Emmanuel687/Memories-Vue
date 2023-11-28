@@ -7,14 +7,16 @@
       <p class="text-gray-600 mb-4">{{ memory.description }}</p>
       <div class="flex space-x-2">
         <span class="bg-gray-200 text-gray-700 px-2 py-1 text-sm rounded-md">{{ memory.tags }}</span>
-        <!-- Add more tags as needed -->
+    <!-- Add more tags as needed -->
       </div>
       <CommentForm />
     </div>
+
   </div>
 
 </template>
 <script setup>
+ import CommentForm from './CommentForm.vue';
 
  const props = defineProps(["memories"]);
 

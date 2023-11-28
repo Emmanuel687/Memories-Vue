@@ -40,7 +40,7 @@
   const emit = defineEmits(["memorySubmitted"]);
   
   const onSubmit = () => {
-    // if (!title.value || !description.value || !tags.value || !image.value) return;
+    if (!title.value || !description.value || !tags.value || !image.value) return;
   
     const memoryData = {
       title: title.value,
