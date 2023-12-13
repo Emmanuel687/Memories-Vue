@@ -29,6 +29,52 @@ Example
 npx create-vue @latest expense-tracker
 
 
+# Vue Components
+Component Concepts
+1.Vue Single component
+2.Vue Component Registration.
+
+Vue Single component
+-A vue component is a small piece of code that can be reused within the application.
+-A vue component is created with the .vue extension
+-A vue component consists of template , script and styles which is optional which is in a single file.
+-A vue template represents the HTML markup that defines the structure of the component,with the template you can use vue directives for dynamic behavior, handle events and bind data using double curly braces.
+-A vue script represents the section where we can write javascript and typescript logic of a component, with the script we define the setup function and return data object.
+-A vue style script contains the component specific styles and scoped attributes ensures the styles is only applied to that particular component.
+
+NB:- Setup replaces the option API for defining reactive data, methods and lifecycle behaviors.
+
+
+Syntax
+<template><HtmlElement></HtmlElement></template>
+<script>
+     setup(){}
+     return{}
+</script>
+<styles>Css Logic</styles>
+Example
+<template>
+    <h1>{{}}</h1>
+    <button @click=”increment”>Increase</button>
+</template>
+
+<script>
+    setup(){
+      export default(){
+        const title = ref(“Vue);
+        const increment =()=>title.value = “Incremented”;
+       }
+
+       return{title,increment }
+        }
+</script>
+
+<styles>
+    h1{ color:blue}
+</styles>
+
+
+
 
 
 
