@@ -76,5 +76,16 @@ Example
 
 
 
+Vue Components
+Component Concepts
+1.Vue Single component
+2.Vue Component Registration.
+
+ Vue Single component
+ -A vue component is a small piece of code that can be reused within the application.
+-A vue component is created with the .vue extension
+-A vue component consists of template , script and styles which is optional which is in a single file.
+-A vue template represents the HTML markup that defines the structure of the component,with the template you can use vue directives for dynamic behavior, handle events and bind data using double curly braces.
+-A vue script represents the section where we can write javascript and typescript logic of a component, with the script we define the setup function and return data object.
 
 
