@@ -1,23 +1,22 @@
-
-https://stlhorizon-my.sharepoint.com/:u:/g/personal/evance_stl-horizon_com/EYuWpp9Ou1ZHs5cK02_WU5oBATLxg3_lv0_2dwdqxSwsZA?e=4%3amQFEq0&fromShare=true&at=9
-
-https://component-party.dev/
-
 Vue Framework
 
 Vue Resources
 https://stlhorizon-my.sharepoint.com/:u:/g/personal/evance_stl-horizon_com/EYuWpp9Ou1ZHs5cK02_WU5oBATLxg3_lv0_2dwdqxSwsZA?e=4%3amQFEq0&fromShare=true&at=9
 
+https://youtu.be/3B0ry4GI1cE?si=zoi033Ana8IrOt6y
+https://youtu.be/mZFuR3-oNXQ?si=Hc2pvHXi_BEMLOyr
+
 Vue RoadMap
-1.Vue Introduction and Features
+1.Vue Introduction/Features
 2.Vue Installation.
 3.Vue Components.
-4.Vue Binding
+4.Vue Binding.
+5.Vue Conditional Rendering
+9.Vue Props
 5.Vue List Rendering.
 6.Vue Event Handling
 7.Vue Computed Properties
 8.Vue Directives
-9.Vue Props
 10.Vue Forms
 Vue Introduction/Features
 -Vue.js is a progressive Javascript framework used for building user interface.
@@ -48,47 +47,28 @@ npx create-vue @latest expense-tracker
 
 Vue Components
 Component Concepts
-1.Vue Single component
+1.Vue Single component.
 2.Vue Component Registration.
 
  Vue Single component
- -A vue component is a small piece of code that can be reused within the application.
+-A vue component is a  piece of code that can be reused within the application.
 -A vue component is created with the .vue extension
--A vue component consists of template , script and styles which is optional which is in a single file.
--A vue template represents the HTML markup that defines the structure of the component,with the template you can use vue directives for dynamic behavior, handle events and bind data using double curly braces.
--A vue script represents the section where we can write javascript and typescript logic of a component, with the script we define the setup function and return data object.
+-A vue component consists of three sections:template,script and styles which are optional.
+-The template defines the HTML markup , you can use vue directives for dynamic behavior, event handling and data binding.
+-The script defines the logic of the component where you write javascript and typescript code.
 -A vue style script contains the component specific styles and scoped attributes ensures the styles is only applied to that particular component.
 
-NB:- Setup replaces the option API for defining reactive data, methods and lifecycle behaviors.
-
+NB:-Script setup function is defined because we are using composition API.
+      -Styles scope function is used to prevent styles to be shared globally.
 
 Syntax
-<template><HtmlElement></HtmlElement></template>
-<script>
-     setup(){}
-     return{}
-</script>
+<template>HTML Markup</template>
+<script setup> Javascript Logic </script>
 <styles>Css Logic</styles>
 Example
-<template>
-    <h1>{{}}</h1>
-    <button @click=”increment”>Increase</button>
-</template>
-
-<script>
-    setup(){
-      export default(){
-        const title = ref(“Vue);
-        const increment =()=>title.value = “Incremented”;
-       }
-
-       return{title,increment }
-        }
-</script>
-
-<styles>
-    h1{ color:blue}
-</styles>
+<template> <h1>{{vueApp}}</h1> </template>
+<script setup>const vueApp = ref(“Hello Vue”)</script>
+<styles> h1{ color:”#ffffff” } </styles>
 
 Vue Component Registration
 -Vue components can be imported and used across different components.
@@ -99,7 +79,12 @@ Vue Component Registration
 -Components are exported and then registered in a component method.
 
 NB:- With setup on the script components are made available in the component.
-      -
+
+Syntax
+<template><myImportedComponent /></template>
+<script setup>
+import MyImportedComponent from ‘./components/MyImportedComponent’;
+</script>
 
 Syntax
 <template><myImportedComponent /></template>
@@ -110,10 +95,10 @@ export default{
 }
 </script>
 
-Syntax
-<template><myImportedComponent /></template>
+Example
+<template><Header /></template>
 <script setup>
-import MyImportedComponent from ‘./components/MyImportedComponent’;
+import Header from ‘./components/Header’;
 </script>
 
 Example
@@ -121,15 +106,10 @@ Example
 <script>
 import Header from ‘./components/Header’;
 export default{
-      components:{Header, }
-}
+      components:{Header, }}
 </script>
 
-Example
-<template><Header /></template>
-<script setup>
-import Header from ‘./components/Header’;
-</script>
+
 Vue Binding
 Data Binding Concepts
 1.Two Way Data Binding
@@ -141,7 +121,7 @@ Two Way DataBinding
 -Two way data binding allows data to flow in both ways from the model to the view and vice versa.
 -When data changes in the model it automatically updates the view and when the user interacts with the view the changes are reflected back to the model, This is achieved using v-model directive
 -The v-model directives is used to achieve two way data binding.
-Syntax
+Example
 <template>
 <input v-model=”data” value=”data”/>
 <span>{{data}}<span/>
@@ -206,67 +186,58 @@ const handleParagraph =()=>showParagraph.value = !showParagraph.value
 
 Vue Props
 Prop Concepts
-1.Vue Props
-2.Vue Props Array & Object
-
--Props is a special keyword that stands for properties. 
--Props is used to pass data from one component to another mostly from parent to child component.
--Props are passed to a component then received on the other component.
--Props can pass any data types:-Strings,Arrays,Objects,Booleans including functions.
--Props data is binded using the v-bind directive in the parent component.
+1.Vue Properties
+2.Vue Props Array Syntax
+3.Vue Props Object Syntax
+ 
+Vue Properties
+-Props is a special keyword that stands for properties in Vue.js 
+-Props is used to pass data from one component to another, primarily from parent to child component.
+-Props are passed to a component then received on the other component, using the defineProps function in the setup script function.
+-Props can carry various data types including Strings,Arrays,Objects,Booleans and even functions.
+-Props data is binded using the v-bind directive to the component that receive props.
 -Props data is received in the child component with the defineProps() in the composition API.
-NB:-Defined Props should be imported in the component that receives the props.        
-                   
+-The defineProps provides reactivity for props enabling automatic updates when prop values changes
+
+NB:- Props should be binded when passed to various component levels.
+
 Syntax
-Parent
 <template> 
-     <componentExample :propName=”values”></componentExample>
+     <ChildComponent :propName=”parentData”></ChildComponent>
 </template>
-<script setup >
-    import componentExample from “./components/componentExample”
-   const values = refs([value,value])
- <script>
-Child
+Example
 <template> 
- <h1>Component Example<h1>
- <ul>
-   <li v-for=”for propValue in propValues  ”>{{propValue}}</li>
-</ul>
+     <ChildComponent :petName=”petName”></ChildComponent>
 </template>
-<script setup >
-const props = defineProps{
-       propName:{ type:DataType, required:true}
-}
+<script setup>
+      const petName = ref(“Cat”)
+ </script>
 
-const props = defineProps([“propName”])
 
- <script>
 
-Vue Props Array & Object
--Props can be received in either an array or an object in the component.
--When props are received as an object we must declare the data type of the prop used in the parent component, this is done by specifying the key as the prop name and value is the data type in the object.
--When received as an array the prop names are just added in the array.
+Vue Props Array Syntax 
+-Props received by an array are defined using the defineProps.
+-The array carries the name of the props received
+-The prop variable could be destructured to extract individual prop values from the array.
 Syntax
 <script setup>
-import defineProps from vue
- const props = defineProps({propName:propDataType})
+     const props = defineProps([“propName”, propName2])
+     const [propName, propName2] = defineProps([“propName”, propName2])
 </script>
-
+Vue Props Object Syntax 
+-Props received by an object are defined using the defineProps and their expected data types.
+-Prop Data Types can be specified such as String, Array , Object , Boolean and Function.
+-Object destructuring can be used to extract individual prop values from the object returned by defineProps.
 Syntax
 <script setup>
-import defineProps from vue
- const props = defineProps({propName:{ type: propDataType, isRequired:boolean}})
+   const props = defineProps({propName:dataType})
+   const props = defineProps({propName:{type:String, isRequired:true}})
 </script>
 
-Syntax
 <script setup>
-import defineProps from vue
- const props = defineProps([“propName])
+   const {propName } = defineProps( {propName:dataType, propName2:dataType} )
+   const { propName } = defineProps( { propName:{type:String }})
 </script>
-
-
-
-
 
 Vue List Rendering
 -A List is used to display data in an orderly format.
@@ -298,50 +269,84 @@ export default(){
 </script>
 
 Vue Event Handling
+1.v-on Directive
+2.Click Event
+3.Submit Event
+ v-on Directive
 -Event listeners are used to handle users' interaction with the webpage such as clicking a button or hovering over a particular element.
 -V-on directive is used for event handling with the name of the event you want to trigger.
--The @click is used  to handle click events.
--The @change is used to handle input value changes.
--The @submit.prevent is used to handle form submission and prevents default form submission.
--The @mouseenter is used to handle mouse enter.
--The @mouseleave is used to handle mouse leave.
+-This event could be a click event, change event , submit event ,mouseenter event or mouseleave event. 
+NB:-The shorthand for v-on event is @ 
+Syntax
+v-on:eventName
+@eventName 
 
-NB:- v-on shorthand is @
+NB:-The @mouseenter is used to handle mouse enter.
+      -The @mouseleave is used to handle mouse leaves.
+      -The @change is used to handle input value changes.
+
+Click Event
+-The @click is used  to handle click events by listening to DOM events
+-The handler function can be an inline handler or method handler
+-The inline handler is used to execute simple logic.
+-The method handler is used for complex logic.
 
 Syntax
-<button  v-on:eventName=”handlerFunction>Click Me</button>
-<button @eventName=”handlerFunction”>Click me</button>
+@click = “handlerFunction”
+
 Example
-@click
 <template>
     <span>{{count}}</span>
-    <button @click=”handleCount”>Add Counter</button>
+    <button @click=”count=count+1”>Add Counter</button>
+    <button @click=”handleChangeItem>Change Item</button>
+     
 </template> 
 
 <script setup>
 const count = ref(0)
-const handleCount = ()=> count.value=count.value+1
+const item = ref(“Tie”)
+const handleChangeItem = ()=> item.value=”socks”
 <script/>
+
+Submit Event
+-The submit event is used to handle form submission in vue.js applications.
+-The prevent event modifier is used to prevent the default behavior of a form submission
+-The input value attribute in the input elements is not necessary when using the v-model as the v-model automatically binds the input value.
+-A Conditional Statement is used to check whether both inputs are available, if either is missing the form submission won't occur.
+-After the reactive object is created the input values are reset by setting them to an empty string as this clears the input fields for a new set of inputs.
+
+NB:-The properties of the object should be accessed with the value 
+
+Syntax
+@prevent.submit = “handlerFunction”
+
 Example
-@submit.prevent
 <template>
   <form @submit.prevent=”handleSubmit”>
-      <input type=”submit” v-model=”firstName” />
-     <button @click=”handleCount”>Add Counter</button>
+      <input  v-model=”firstName” />
+       <input v-model=”secondName” />
+  <button type=”submit”>Submit</button>
   <form/>
-<span>{firstName}{secondName}</span>
+<span>{firstName} {secondName}</span>
 </template> 
 
 <script setup>
+if(!firstName || !secondName) return null
 const firstName = ref(“”);
 const secondName = ref(“”)
-
 const handleSubmit = ()=>{
-         const obj = {
+      const obj =reactive({
                    firstName:firstName.value,
-                   secondName:secondName.value
-}} 
+                   secondName:secondName.value}})
+firstName.value=””
+secondName.value=””
 <script/>
+
+
+
+
+
+
 
 
 Vue Composition API
@@ -379,23 +384,23 @@ Vue Ref
 -Ref function is used to create a reactive reference to a single value.
 -Ref returns an object and the actual value can be accessed through the value property.
 -The other property in ref is _v_isRef which is a boolean property that indicates whether the object is a ref. It is useful for the debugging process. 
-
 NB:- Values declared with  are accessed with .value 
+
+Syntax 
+ref()
+Example
+const itemValue = ref(“Sock”)
+itemValue.value = “Scurf”
+console.log(itemValue.value)
+Output:- Scurf
  Vue Reactive
 -Reactive function is used to create reactive objects with multiple properties.
 -Reactive function makes the entire object reactive rather than a single object.
 -Reactive values are accessed directly.
 
 NB:- Values declared with Reactive are accessed directly. 
-
 Syntax 
-ref()
 reactive()
-Example
-const itemValue = ref(“Sock”)
-itemValue.value = “Scurf”
-console.log(itemValue.value)
-Output:- Scurf
 
 Example
 const itemValues = reactive([{id:0,item:”Socks”},{id:1,item:”Jacket”}])
