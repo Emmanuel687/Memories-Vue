@@ -10,7 +10,7 @@ Vue RoadMap
 1.Vue Introduction/Features
 2.Vue Installation.
 3.Vue Components.
-4.Vue Binding.
+4.Vue Binding
 5.Vue Conditional Rendering
 9.Vue Props
 5.Vue List Rendering.
