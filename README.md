@@ -1,4 +1,4 @@
-Vue Framework/nuxt
+Vue Framework
 
 Vue Resources
 https://stlhorizon-my.sharepoint.com/:u:/g/personal/evance_stl-horizon_com/EYuWpp9Ou1ZHs5cK02_WU5oBATLxg3_lv0_2dwdqxSwsZA?e=4%3amQFEq0&fromShare=true&at=9
@@ -6,20 +6,19 @@ https://stlhorizon-my.sharepoint.com/:u:/g/personal/evance_stl-horizon_com/EYuWp
 https://youtu.be/3B0ry4GI1cE?si=zoi033Ana8IrOt6y
 https://youtu.be/mZFuR3-oNXQ?si=Hc2pvHXi_BEMLOyr
 
-# UI/UX:- https://www.behance.net/
-
 Vue RoadMap
 1.Vue Introduction/Features
 2.Vue Installation.
 3.Vue Components.
-4.Vue Binding
+4.Vue Binding.
 5.Vue Conditional Rendering
-9.Vue Props
-5.Vue List Rendering.
-6.Vue Event Handling
-7.Vue Computed Properties
-8.Vue Directives
-10.Vue Forms
+6.Vue Props
+7.Vue List Rendering.
+8.Vue Event Handling.
+9.Vue Custom Event (Emit)
+10.Vue Computed Properties
+11.Vue Directives
+12.Vue Forms
 Vue Introduction/Features
 -Vue.js is a progressive Javascript framework used for building user interface.
 -Some features of vue are:-
@@ -344,11 +343,34 @@ firstName.value=””
 secondName.value=””
 <script/>
 
-
-
-
-
-
+Vue Custom Events (Emit)
+-Emit is used in the composition API to trigger custom events from child components to parent components.
+-Emit function allows child components to communicate and send data to their parent components.
+-The defineEmits receives the event from the parent component.
+-The emit function receives the event callBack and data you want to pass through it.
+Syntax
+defineEmits(“EventName”)
+emits(“EventName”, “Data to Pass”)
+Example
+Parent
+<script>
+   const childData = ref(“”)
+   const updateData = data=>childData.value = data
+</script>
+<template>
+  <span>{{childData}}<span/>
+  <ChildComponent @updateData=updateData />
+</template>
+Child
+<script>
+    const parentdata = ref(“Vue is Great”);
+    const emit = defineEmit(“updateData”); 
+    const handleUpdate =()=> emit(“updateData”, `${parentData}` )
+</script>
+<template>
+     <span>Child Component</span>
+     <button @click=”handleUpdate”></button>
+</template>
 
 
 Vue Composition API
